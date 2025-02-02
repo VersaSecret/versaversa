@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1 Month Together! 🎉</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffd6e7, #c8f4f9);
+            font-family: 'Arial Rounded MT Bold', sans-serif;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        .message {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            line-height: 1.6;
+            text-align: center;
+        }
+        .language-buttons {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 0 5px;
+            border: none;
+            border-radius: 20px;
+            background: #ffffff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        /* Анимации для элементов */
+        .floating-element {
+            position: fixed;
+            pointer-events: none;
+            animation: float 15s infinite linear;
+        }
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-50vh) rotate(180deg); }
+            100% { transform: translateY(0) rotate(360deg); }
+        }
+        .phrase {
+            font-size: 14px;
+            font-style: italic;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .timer {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #ff69b4;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            line-height: 1.6;
+        }
+        /* Конфетти */
+        .confetti {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background-color: red;
+            top: -10px;
+            animation: confetti-fall linear infinite;
+        }
+        @keyframes confetti-fall {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+
+        /* Адаптация для мобильных устройств */
+        @media (max-width: 600px) {
+            .message {
+                padding: 15px;
+                font-size: 14px;
+            }
+            .timer {
+                font-size: 16px;
+                padding: 10px;
+            }
+            button {
+                padding: 8px 15px;
+                font-size: 12px;
+            }
+            .phrase {
+                font-size: 12px;
+            }
+            .floating-element {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="language-buttons">
+        <button onclick="changeLanguage('ru')">🇷🇺 Русский</button>
+        <button onclick="changeLanguage('en')">🇬🇧 English</button>
+        <button onclick="changeLanguage('ro')">🇷🇴 Română</button>
+    </div>
+    <div class="container">
+        <div class="message" id="message">
+            <!-- Текст будет подставлен через JavaScript -->
+        </div>
+        <div class="timer" id="timer">Загрузка таймера...</div>
+    </div>
+    <script>
+        // Тексты на разных языках
+        const texts = {
+            ru: `<h1>🎉 Месяц нашего общения! 👏</h1>
+                <p>Маргарита - Маргарита,﻿ ведь ты не забыла?﻿
+Маргарита - ты же помнишь,﻿ как все это было.</p>`,
+            
+            en: `<h1>🎉 Our month of fellowship! 👏</h1>
+                <p>Margarita - Margarita, you haven't forgotten, have you?﻿
+Margarita - You remember how it was.</p>`,
+            
+            ro: `<h1>👏 Luna comunicării noastre! 🎉</h1>
+                <p>Margarita - Margarita, nu ai uitat, nu-i așa? 
+Margarita - îți amintești cum a fost totul?</p>`
+        };
+        // Создаем летающие элементы
+        function createFloatingElements() {
+            const elements = ['🎈', '😊', '🥰', '✨', '🎉','💫','😏'];
+            const phrases = [
+                "Rapan", 
+                "Rapan de ființă și de tot", 
+                "Рита", 
+                "Маргарита - ты же помнишь, как все это было"
+            ];
+            const windowHeight = window.innerHeight;
+            const windowWidth = window.innerWidth;
+
+            // Уменьшаем количество эмодзи
+            for (let i = 0; i < 8; i++) {
+                const elem = document.createElement('div');
+                elem.className = 'floating-element';
+                elem.style.cssText = `
+                    left: ${Math.random() * (windowWidth - 50)}px;
+                    top: ${Math.random() * (windowHeight - 50)}px;
+                    font-size: ${20 + Math.random() * 20}px;
+                    animation-delay: ${Math.random() * 5}s;
+                `;
+                elem.innerHTML = elements[Math.floor(Math.random() * elements.length)];
+                document.body.appendChild(elem);
+            }
+
+            // Уменьшаем количество фраз
+            for (let i = 0; i < 6; i++) {
+                const phrase = phrases[Math.floor(Math.random() * phrases.length)];
+                const elem = document.createElement('div');
+                elem.className = 'floating-element phrase';
+                elem.style.cssText = `
+                    left: ${Math.random() * (windowWidth - 200)}px;
+                    top: ${Math.random() * (windowHeight - 50)}px;
+                    animation-duration: ${20 + Math.random() * 20}s;
+                    color: rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255});
+                `;
+                elem.textContent = phrase;
+                document.body.appendChild(elem);
+            }
+        }
+
+        // Создаем конфетти
+        function createConfetti() {
+            const colors = ['red', 'blue', 'green', 'yellow', 'pink', 'purple', 'orange'];
+            for (let i = 0; i < 20; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = `${Math.random() * 100}vw`;
+                confetti.style.animationDuration = `${2 + Math.random() * 3}s`;
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                document.body.appendChild(confetti);
+            }
+        }
+
+        function changeLanguage(lang) {
+            document.getElementById('message').innerHTML = texts[lang];
+        }
+        // Таймер
+        function updateTimer() {
+            const startDate = new Date('2025-01-03T23:52:00');
+            const now = new Date();
+            const diff = now - startDate;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            document.getElementById('timer').innerHTML = 
+                `Время с момента знакомства: ${days} дней ${hours} часов ${minutes} минут ${seconds} секунд`;
+        }
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', () => {
+            changeLanguage('ru');
+            createFloatingElements();
+            createConfetti();
+            setInterval(updateTimer, 1000);
+        });
+    </script>
+</body>
+</html>
